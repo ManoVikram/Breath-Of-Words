@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package servicepb;
+
+enum AI {
+    CHATGPT = 0;
+    CLAUDE = 1;
+    LLAMA = 2;
+}
+
+message AskAIRequest {
+    repeated AI ai_selected = 1;
+    string request_text = 2;
+}
+
+message AIModelResponse {
+    AI model = 1;
+    string response = 2;
+}
+
+message AskAIResponse {
+    repeated AIModelResponse responses = 1;
+}
+
+service AIWritingAssistantService {
+    rpc AskAI(AskAIRequest) returns (AskAIResponse);
+}
