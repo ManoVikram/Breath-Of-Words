@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package servicepb;
 
+option go_package = "github.com/ManoVikram/AI-Writing-Assistant/backend/api/proto";
+
 enum AI {
     CHATGPT = 0;
     CLAUDE = 1;
