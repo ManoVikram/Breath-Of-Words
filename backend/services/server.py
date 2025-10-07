@@ -2,9 +2,30 @@ from concurrent import futures
 import os
 from dotenv import load_dotenv
 import grpc
+from openai import OpenAI
 from proto import service_pb2, service_pb2_grpc
 
 class AIWritingAssistantService(service_pb2_grpc.AIWritingAssistantServiceServicer):
+    def call_gpt(self, prompt):
+        client = OpenAI()
+        response = client.responses.create(
+            model="gpt-4o",
+            input=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+        )
+
+        return response.output_text
+
+    def call_claude(self, prompt):
+        pass
+
+    def call_llama(self, prompt):
+        pass
+
     def AskAI(self, request, context):
         responses = []
 
