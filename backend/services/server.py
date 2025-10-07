@@ -6,7 +6,17 @@ from proto import service_pb2, service_pb2_grpc
 
 class AIWritingAssistantService(service_pb2_grpc.AIWritingAssistantServiceServicer):
     def AskAI(self, request, context):
-        pass
+        responses = []
+
+        for model in request.ai_selected:
+            responses.append(
+                service_pb2.AIResponse(
+                    model=model,
+                    response=f"Response from {service_pb2.AI.Name(model)} for prompt: {request.request_text}"
+                )
+            )
+
+        return service_pb2.AskAIResponse(responses=responses)
     
 def serve():
     load_dotenv()
