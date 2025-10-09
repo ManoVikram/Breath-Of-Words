@@ -1,5 +1,6 @@
 from concurrent import futures
 import os
+import anthropic
 from dotenv import load_dotenv
 import grpc
 from openai import OpenAI
@@ -21,7 +22,15 @@ class AIWritingAssistantService(service_pb2_grpc.AIWritingAssistantServiceServic
         return response.output_text
 
     def call_claude(self, prompt):
-        pass
+        client = anthropic.Anthropic()
+        response = client.messages.create(
+            model="claude-3-haiku-20240307",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
+        )
+
+        return response.content
 
     def call_llama(self, prompt):
         pass
@@ -42,6 +51,7 @@ class AIWritingAssistantService(service_pb2_grpc.AIWritingAssistantServiceServic
 def serve():
     load_dotenv()
     assert os.getenv("OPENAI_API_KEY"), "OPENAI_API_KEY environment variable not set in the environment variables."
+    assert os.getenv("ANTHROPIC_API_KEY"), "ANTHROPIC_API_KEY environment variable not set in the environment variables."
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     service_pb2_grpc.add_AIWritingAssistantServiceServicer_to_server(AIWritingAssistantService(), server)
