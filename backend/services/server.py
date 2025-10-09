@@ -39,10 +39,19 @@ class AIWritingAssistantService(service_pb2_grpc.AIWritingAssistantServiceServic
         responses = []
 
         for model in request.ai_selected:
+            if model == service_pb2.CHATGPT:
+                text = self.call_gpt(request.request_text)
+            elif model == service_pb2.CLAUDE:
+                text = self.call_claude(request.request_text)
+            elif model == service_pb2.LLAMA:
+                text = self.call_llama(request.request_text)
+            else:
+                text = "Unsupported model"
+
             responses.append(
                 service_pb2.AIResponse(
                     model=model,
-                    response=f"Response from {service_pb2.AI.Name(model)} for prompt: {request.request_text}"
+                    response=text
                 )
             )
 
