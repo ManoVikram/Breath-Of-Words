@@ -1,6 +1,6 @@
 package models
 
 type AskAIRequest struct {
-	SelectedAI  []string `json:"selected_ai"`
+	AISelected  []string `json:"ai_selected"`
 	RequestText string   `json:"request_text"`
 }
