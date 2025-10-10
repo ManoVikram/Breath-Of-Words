@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/ManoVikram/AI-Writing-Assistant/backend/api/routes"
 	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -21,6 +22,9 @@ func main() {
 	server := gin.Default()
 
 	server.RedirectTrailingSlash = true
+
+	// Register routes
+	routes.RegisterRoutes(server)
 
 	// Start the Gin server
 	port := os.Getenv("PORT")
