@@ -3,6 +3,7 @@ import os
 import anthropic
 from dotenv import load_dotenv
 import grpc
+from huggingface_hub import InferenceClient
 from openai import OpenAI
 from proto import service_pb2, service_pb2_grpc
 
@@ -33,7 +34,16 @@ class AIWritingAssistantService(service_pb2_grpc.AIWritingAssistantServiceServic
         return response.content
 
     def call_llama(self, prompt):
-        pass
+        client = InferenceClient(model="meta-llama/Llama-2-7b-chat-hf", token=os.getenv("HF_TOKEN"))
+        response = client.text_generation(
+            prompt,
+            max_new_tokens=512,
+            temperature=0.7,
+            top_p=0.9,
+            repetition_penalty=1.1,
+        )
+
+        return response
 
     def AskAI(self, request, context):
         responses = []
