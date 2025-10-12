@@ -25,13 +25,14 @@ class AIWritingAssistantService(service_pb2_grpc.AIWritingAssistantServiceServic
     def call_claude(self, prompt):
         client = anthropic.Anthropic()
         response = client.messages.create(
+            max_tokens=1024,
             model="claude-3-haiku-20240307",
             messages=[
                 {"role": "user", "content": prompt}
             ]
         )
 
-        return response.content
+        return response.content[0].text
 
     def call_llama(self, prompt):
         client = InferenceClient(model="meta-llama/Llama-2-7b-chat-hf", token=os.getenv("HF_TOKEN"))
@@ -59,9 +60,9 @@ class AIWritingAssistantService(service_pb2_grpc.AIWritingAssistantServiceServic
                 text = "Unsupported model"
 
             responses.append(
-                service_pb2.AIResponse(
-                    model=model,
-                    response=text
+                service_pb2.AIModelResponse(
+                    model=int(model),
+                    response=str(text)
                 )
             )
 
