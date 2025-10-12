@@ -24,22 +24,25 @@ const (
 type AI int32
 
 const (
-	AI_CHATGPT AI = 0
-	AI_CLAUDE  AI = 1
-	AI_LLAMA   AI = 2
+	AI_UNKNOWN AI = 0
+	AI_CHATGPT AI = 1
+	AI_CLAUDE  AI = 2
+	AI_LLAMA   AI = 3
 )
 
 // Enum value maps for AI.
 var (
 	AI_name = map[int32]string{
-		0: "CHATGPT",
-		1: "CLAUDE",
-		2: "LLAMA",
+		0: "UNKNOWN",
+		1: "CHATGPT",
+		2: "CLAUDE",
+		3: "LLAMA",
 	}
 	AI_value = map[string]int32{
-		"CHATGPT": 0,
-		"CLAUDE":  1,
-		"LLAMA":   2,
+		"UNKNOWN": 0,
+		"CHATGPT": 1,
+		"CLAUDE":  2,
+		"LLAMA":   3,
 	}
 )
 
@@ -164,7 +167,7 @@ func (x *AIModelResponse) GetModel() AI {
 	if x != nil {
 		return x.Model
 	}
-	return AI_CHATGPT
+	return AI_UNKNOWN
 }
 
 func (x *AIModelResponse) GetResponse() string {
@@ -231,12 +234,13 @@ const file_service_proto_rawDesc = "" +
 	"\x05model\x18\x01 \x01(\x0e2\r.servicepb.AIR\x05model\x12\x1a\n" +
 	"\bresponse\x18\x02 \x01(\tR\bresponse\"I\n" +
 	"\rAskAIResponse\x128\n" +
-	"\tresponses\x18\x01 \x03(\v2\x1a.servicepb.AIModelResponseR\tresponses*(\n" +
+	"\tresponses\x18\x01 \x03(\v2\x1a.servicepb.AIModelResponseR\tresponses*5\n" +
 	"\x02AI\x12\v\n" +
-	"\aCHATGPT\x10\x00\x12\n" +
+	"\aUNKNOWN\x10\x00\x12\v\n" +
+	"\aCHATGPT\x10\x01\x12\n" +
 	"\n" +
-	"\x06CLAUDE\x10\x01\x12\t\n" +
-	"\x05LLAMA\x10\x022W\n" +
+	"\x06CLAUDE\x10\x02\x12\t\n" +
+	"\x05LLAMA\x10\x032W\n" +
 	"\x19AIWritingAssistantService\x12:\n" +
 	"\x05AskAI\x12\x17.servicepb.AskAIRequest\x1a\x18.servicepb.AskAIResponseB>Z<github.com/ManoVikram/AI-Writing-Assistant/backend/api/protob\x06proto3"
 

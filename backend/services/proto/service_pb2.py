@@ -24,21 +24,22 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rservice.proto\x12\tservicepb\"H\n\x0c\x41skAIRequest\x12\"\n\x0b\x61i_selected\x18\x01 \x03(\x0e\x32\r.servicepb.AI\x12\x14\n\x0crequest_text\x18\x02 \x01(\t\"A\n\x0f\x41IModelResponse\x12\x1c\n\x05model\x18\x01 \x01(\x0e\x32\r.servicepb.AI\x12\x10\n\x08response\x18\x02 \x01(\t\">\n\rAskAIResponse\x12-\n\tresponses\x18\x01 \x03(\x0b\x32\x1a.servicepb.AIModelResponse*(\n\x02\x41I\x12\x0b\n\x07\x43HATGPT\x10\x00\x12\n\n\x06\x43LAUDE\x10\x01\x12\t\n\x05LLAMA\x10\x02\x32W\n\x19\x41IWritingAssistantService\x12:\n\x05\x41skAI\x12\x17.servicepb.AskAIRequest\x1a\x18.servicepb.AskAIResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rservice.proto\x12\tservicepb\"H\n\x0c\x41skAIRequest\x12\"\n\x0b\x61i_selected\x18\x01 \x03(\x0e\x32\r.servicepb.AI\x12\x14\n\x0crequest_text\x18\x02 \x01(\t\"A\n\x0f\x41IModelResponse\x12\x1c\n\x05model\x18\x01 \x01(\x0e\x32\r.servicepb.AI\x12\x10\n\x08response\x18\x02 \x01(\t\">\n\rAskAIResponse\x12-\n\tresponses\x18\x01 \x03(\x0b\x32\x1a.servicepb.AIModelResponse*5\n\x02\x41I\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07\x43HATGPT\x10\x01\x12\n\n\x06\x43LAUDE\x10\x02\x12\t\n\x05LLAMA\x10\x03\x32W\n\x19\x41IWritingAssistantService\x12:\n\x05\x41skAI\x12\x17.servicepb.AskAIRequest\x1a\x18.servicepb.AskAIResponseB>Z<github.com/ManoVikram/AI-Writing-Assistant/backend/api/protob\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
-  DESCRIPTOR._loaded_options = None
+  _globals['DESCRIPTOR']._loaded_options = None
+  _globals['DESCRIPTOR']._serialized_options = b'Z<github.com/ManoVikram/AI-Writing-Assistant/backend/api/proto'
   _globals['_AI']._serialized_start=233
-  _globals['_AI']._serialized_end=273
+  _globals['_AI']._serialized_end=286
   _globals['_ASKAIREQUEST']._serialized_start=28
   _globals['_ASKAIREQUEST']._serialized_end=100
   _globals['_AIMODELRESPONSE']._serialized_start=102
   _globals['_AIMODELRESPONSE']._serialized_end=167
   _globals['_ASKAIRESPONSE']._serialized_start=169
   _globals['_ASKAIRESPONSE']._serialized_end=231
-  _globals['_AIWRITINGASSISTANTSERVICE']._serialized_start=275
-  _globals['_AIWRITINGASSISTANTSERVICE']._serialized_end=362
+  _globals['_AIWRITINGASSISTANTSERVICE']._serialized_start=288
+  _globals['_AIWRITINGASSISTANTSERVICE']._serialized_end=375
 # @@protoc_insertion_point(module_scope)
