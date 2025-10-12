@@ -2,6 +2,7 @@ from concurrent import futures
 import os
 import anthropic
 from dotenv import load_dotenv
+import ollama
 import grpc
 from huggingface_hub import InferenceClient
 from openai import OpenAI
@@ -35,16 +36,14 @@ class AIWritingAssistantService(service_pb2_grpc.AIWritingAssistantServiceServic
         return response.content[0].text
 
     def call_llama(self, prompt):
-        client = InferenceClient(model="meta-llama/Llama-2-7b-chat-hf", token=os.getenv("HF_TOKEN"))
-        response = client.text_generation(
-            prompt,
-            max_new_tokens=512,
-            temperature=0.7,
-            top_p=0.9,
-            repetition_penalty=1.1,
+        response = ollama.chat(
+            model="llama2",
+            messages=[
+                {"role": "user", "content": prompt}
+            ]
         )
 
-        return response
+        return response["message"]["content"]
 
     def AskAI(self, request, context):
         responses = []
@@ -72,6 +71,7 @@ def serve():
     load_dotenv()
     assert os.getenv("OPENAI_API_KEY"), "OPENAI_API_KEY environment variable not set in the environment variables."
     assert os.getenv("ANTHROPIC_API_KEY"), "ANTHROPIC_API_KEY environment variable not set in the environment variables."
+    assert os.getenv("HF_TOKEN"), "HF_TOKEN environment variable not set in the environment variables."
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     service_pb2_grpc.add_AIWritingAssistantServiceServicer_to_server(AIWritingAssistantService(), server)
