@@ -5,9 +5,10 @@ package servicepb;
 option go_package = "github.com/ManoVikram/AI-Writing-Assistant/backend/api/proto";
 
 enum AI {
-    CHATGPT = 0;
-    CLAUDE = 1;
-    LLAMA = 2;
+    UNKNOWN = 0;
+    CHATGPT = 1;
+    CLAUDE = 2;
+    LLAMA = 3;
 }
 
 message AskAIRequest {
