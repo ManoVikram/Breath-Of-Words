@@ -34,3 +34,14 @@ Run the below command from the /backend folder to generate the Go gRPC files.
 ```bash
 protoc --proto_path=./proto --go_out=./api/proto --go_opt=paths=source_relative --go-grpc_out=./api/proto --go-grpc_opt=paths=source_relative ./proto/service.proto
 ```
+
+## API Usage
+
+```bash
+curl --location 'http://localhost:8080/api/ask' \
+--header 'Content-Type: application/json' \
+--data '{
+    "ai_selected": ["CHATGPT", "CLAUDE"],
+    "request_text": "Hello!"
+}'
+```
