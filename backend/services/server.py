@@ -1,12 +1,13 @@
-from concurrent import futures
 import os
+from concurrent import futures
+
 import anthropic
-from dotenv import load_dotenv
-import ollama
 import grpc
-from huggingface_hub import InferenceClient
+import ollama
+from dotenv import load_dotenv
 from openai import OpenAI
 from proto import service_pb2, service_pb2_grpc
+
 
 class AIWritingAssistantService(service_pb2_grpc.AIWritingAssistantServiceServicer):
     def call_gpt(self, prompt):
