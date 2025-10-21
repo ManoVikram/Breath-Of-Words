@@ -3,16 +3,36 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from './ui/dropdown-menu'
+import { AI_OPTIONS } from '@/lib/constants'
+import { askAIHelper } from '@/lib/api/helpers'
 
 const ChatWindow = () => {
-    const AI_OPTIONS = ["ChatGPT", "Claude", "Llama"]
-
-    const [selectedAI, setSelectedAI] = useState([AI_OPTIONS[0]])
+    const [selectedAI, setSelectedAI] = useState([AI_OPTIONS[0].name])
     const [inputText, setInputText] = useState("")
+    const [responses, setResponses] = useState({
+        "CHATGPT": "",
+        "CLAUDE": "",
+        "LLAMA": "",
+    })
+
+    const askAI = async () => {
+        // Step 1 - Call the askAIHelper func to hit the API and get response for the selectd AIs
+        const aiResponses = await askAIHelper(selectedAI.map(ai => ai.toUpperCase()), inputText)
+
+        // Step 2 - Clear the input text
+        setInputText("")
+
+        // Step 3 - Update the responses state with the new responses
+        const newResponses = { ...responses };
+        aiResponses.responses.forEach((response) => {
+            newResponses[(AI_OPTIONS.find((model) => model.id === response.model)).name.toUpperCase()] = response.response
+        });
+        setResponses(newResponses);
+    }
 
     return (
         <section className="flex flex-col justify-between items-center h-full my-4 space-y-6">
-            <div className="flex flex-1 justify-center items-center h-full min-w-0 max-w-1/2 space-x-4">
+            <div className="flex flex-1 justify-center items-center h-full min-w-1/2 max-w-1/2 space-x-4">
                 {selectedAI.map((ai) => (
                     <div key={ai} className="flex flex-col flex-1 justify-start items-center size-full rounded-4xl p-5 bg-gray-50 border-4 border-gray-200 space-y-6">
                         <div className="flex justify-between items-center w-full">
@@ -20,12 +40,12 @@ const ChatWindow = () => {
                                 <p className='text-sm'>{ai}</p>
                             </div>
 
-                            <div className="flex justify-center items-center bg-white p-2 aspect-square rounded-full drop-shadow-md active:drop-shadow-none active:shadow-inner transition-all duration-200 cursor-pointer">
+                            <div className="flex justify-center items-center bg-white p-2 aspect-square rounded-full drop-shadow-md active:drop-shadow-none active:shadow-inner transition-all duration-150 cursor-pointer">
                                 <Image src="/copy-icon.svg" alt='copy-icon' height={18} width={18} />
                             </div>
                         </div>
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed dolor non nisl tincidunt porta. Donec luctus non sem quis rhoncus. Vestibulum ac dui non orci accumsan pulvinar. Integer tincidunt vulputate sodales. Sed at magna tincidunt, congue ante quis, luctus dui. Aliquam luctus pharetra vestibulum. Proin imperdiet tempus imperdiet. Ut sit amet nibh et quam ornare efficitur. Sed suscipit elementum convallis.</p>
+                        <p>{responses[ai.toUpperCase()]}</p>
                     </div>
                 ))}
             </div>
@@ -44,14 +64,14 @@ const ChatWindow = () => {
 
                     <DropdownMenuContent>
                         {AI_OPTIONS.map((ai) => (
-                            <DropdownMenuCheckboxItem key={ai} checked={selectedAI.includes(ai)} onCheckedChange={() => setSelectedAI((prev) => prev.includes(ai) ? (prev.length == 1 ? [...prev] : prev.filter((item) => item !== ai)) : [...prev, ai])}>
-                                {ai}
+                            <DropdownMenuCheckboxItem key={ai.id} checked={selectedAI.includes(ai.name)} onCheckedChange={() => setSelectedAI((prev) => prev.includes(ai.name) ? (prev.length == 1 ? [...prev] : prev.filter((item) => item !== ai.name)) : [...prev, ai.name])}>
+                                {ai.name}
                             </DropdownMenuCheckboxItem>
                         ))}
                     </DropdownMenuContent>
                 </DropdownMenu>
 
-                <button type="button" className='flex justify-center items-center h-full aspect-square rounded-full bg-black cursor-pointer' onClick={() => { }} >
+                <button type="button" className='flex justify-center items-center h-full aspect-square rounded-full bg-black cursor-pointer' onClick={askAI} >
                     <Image src="/up-arrow.svg" alt='send-icon' width={20} height={20} />
                 </button>
             </div>
