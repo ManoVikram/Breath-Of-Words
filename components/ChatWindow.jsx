@@ -20,7 +20,7 @@ const ChatWindow = () => {
                                 <p className='text-sm'>{ai}</p>
                             </div>
 
-                            <div className="flex justify-center items-center bg-white p-2 aspect-square rounded-full drop-shadow-md active:drop-shadow-none active:shadow-inner cursor-pointer">
+                            <div className="flex justify-center items-center bg-white p-2 aspect-square rounded-full drop-shadow-md active:drop-shadow-none active:shadow-inner transition-all duration-200 cursor-pointer">
                                 <Image src="/copy-icon.svg" alt='copy-icon' height={18} width={18} />
                             </div>
                         </div>
