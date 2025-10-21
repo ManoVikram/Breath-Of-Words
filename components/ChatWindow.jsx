@@ -5,17 +5,27 @@ import React, { useState } from 'react'
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from './ui/dropdown-menu'
 
 const ChatWindow = () => {
-    const AI_OPTIONS = ["CHATGPT", "CLAUDE", "LLAMA"]
+    const AI_OPTIONS = ["ChatGPT", "Claude", "Llama"]
 
     const [selectedAI, setSelectedAI] = useState([AI_OPTIONS[0]])
     const [inputText, setInputText] = useState("")
 
     return (
-        <div className="flex flex-col justify-between items-center">
-            <div className="flex flex-1 w-full space-x-4">
+        <section className="flex flex-col justify-between items-center h-full my-4 space-y-6">
+            <div className="flex flex-1 justify-center items-center h-full min-w-0 max-w-1/2 space-x-4">
                 {selectedAI.map((ai) => (
-                    <div key={ai} className="flex flex-1">
+                    <div key={ai} className="flex flex-col flex-1 justify-start items-center size-full rounded-4xl p-5 bg-gray-50 border-4 border-gray-200 space-y-6">
+                        <div className="flex justify-between items-center w-full">
+                            <div className="flex justify-center items-center bg-white px-4 py-2 rounded-full drop-shadow-md">
+                                <p className='text-sm'>{ai}</p>
+                            </div>
 
+                            <div className="flex justify-center items-center bg-white p-2 aspect-square rounded-full drop-shadow-md active:drop-shadow-none active:shadow-inner cursor-pointer">
+                                <Image src="/copy-icon.svg" alt='copy-icon' height={18} width={18} />
+                            </div>
+                        </div>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed dolor non nisl tincidunt porta. Donec luctus non sem quis rhoncus. Vestibulum ac dui non orci accumsan pulvinar. Integer tincidunt vulputate sodales. Sed at magna tincidunt, congue ante quis, luctus dui. Aliquam luctus pharetra vestibulum. Proin imperdiet tempus imperdiet. Ut sit amet nibh et quam ornare efficitur. Sed suscipit elementum convallis.</p>
                     </div>
                 ))}
             </div>
@@ -45,7 +55,7 @@ const ChatWindow = () => {
                     <Image src="/up-arrow.svg" alt='send-icon' width={20} height={20} />
                 </button>
             </div>
-        </div >
+        </section>
     )
 }
 
