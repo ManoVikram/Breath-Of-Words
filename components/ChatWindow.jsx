@@ -44,7 +44,7 @@ const ChatWindow = () => {
         <section className="flex flex-col justify-between items-center h-full min-h-0 my-4 space-y-6">
             <div className="flex flex-1 justify-center items-center h-full min-h-0 min-w-1/2 max-w-1/2 space-x-4">
                 {selectedAI.map((ai) => (
-                    <div key={ai} className="flex flex-col flex-1 justify-start items-center size-full rounded-4xl p-5 bg-gray-50 border-4 border-gray-200 space-y-6">
+                    <div key={ai} className="flex flex-col flex-1 justify-start items-start size-full rounded-4xl p-5 bg-gray-50 border-4 border-gray-200 space-y-6">
                         <div className="flex justify-between items-center w-full">
                             <div className="flex justify-center items-center bg-white px-4 py-2 rounded-full drop-shadow-md">
                                 <p className='text-sm'>{ai}</p>
