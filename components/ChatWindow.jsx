@@ -44,8 +44,8 @@ const ChatWindow = () => {
         <section className="flex flex-col justify-between items-center h-full min-h-0 my-4 space-y-6">
             <div className="flex flex-1 justify-center items-center h-full min-h-0 min-w-1/2 max-w-1/2 space-x-4">
                 {selectedAI.map((ai) => (
-                    <div key={ai} className="flex flex-col flex-1 justify-start items-start size-full rounded-4xl p-5 bg-gray-50 border-4 border-gray-200 space-y-6">
-                        <div className="flex justify-between items-center w-full">
+                    <div key={ai} className={`flex flex-col flex-1 ${isLoading ? "justify-start items-center" : "justify-start items-start"} size-full rounded-4xl p-5 bg-gray-50 border-4 border-gray-200 space-y-6`}>
+                       <div className="flex justify-between items-center w-full">
                             <div className="flex justify-center items-center bg-white px-4 py-2 rounded-full drop-shadow-md">
                                 <p className='text-sm'>{ai}</p>
                             </div>
@@ -55,9 +55,11 @@ const ChatWindow = () => {
                             </div>
                         </div>
 
-                        <div className="min-h-0 pr-2 overflow-y-auto [&::-webkit-scrollbar]:bg-transparent [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full">
-                            <p>{responses[ai.toUpperCase()]}</p>
-                        </div>
+                        {isLoading ? (<Loader2 className='animate-spin text-black w-5 h-5' />) : (
+                            <div className="min-h-0 pr-2 overflow-y-auto [&::-webkit-scrollbar]:bg-transparent [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full">
+                                <p>{responses[ai.toUpperCase()]}</p>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
