@@ -31,8 +31,8 @@ const ChatWindow = () => {
     }
 
     return (
-        <section className="flex flex-col justify-between items-center h-full my-4 space-y-6">
-            <div className="flex flex-1 justify-center items-center h-full min-w-1/2 max-w-1/2 space-x-4">
+        <section className="flex flex-col justify-between items-center h-full min-h-0 my-4 space-y-6">
+            <div className="flex flex-1 justify-center items-center h-full min-h-0 min-w-1/2 max-w-1/2 space-x-4">
                 {selectedAI.map((ai) => (
                     <div key={ai} className="flex flex-col flex-1 justify-start items-center size-full rounded-4xl p-5 bg-gray-50 border-4 border-gray-200 space-y-6">
                         <div className="flex justify-between items-center w-full">
@@ -45,7 +45,9 @@ const ChatWindow = () => {
                             </div>
                         </div>
 
-                        <p>{responses[ai.toUpperCase()]}</p>
+                        <div className="min-h-0 pr-2 overflow-y-auto [&::-webkit-scrollbar]:bg-transparent [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full">
+                            <p>{responses[ai.toUpperCase()]}</p>
+                        </div>
                     </div>
                 ))}
             </div>
