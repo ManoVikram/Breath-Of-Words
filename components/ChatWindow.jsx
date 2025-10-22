@@ -5,10 +5,12 @@ import React, { useState } from 'react'
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from './ui/dropdown-menu'
 import { AI_OPTIONS } from '@/lib/constants'
 import { askAIHelper } from '@/lib/api/helpers'
+import { Loader2 } from 'lucide-react'
 
 const ChatWindow = () => {
     const [selectedAI, setSelectedAI] = useState([AI_OPTIONS[0].name])
     const [inputText, setInputText] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     const [responses, setResponses] = useState({
         "CHATGPT": "",
         "CLAUDE": "",
@@ -16,17 +18,25 @@ const ChatWindow = () => {
     })
 
     const askAI = async () => {
-        // Step 1 - Call the askAIHelper func to hit the API and get response for the selectd AIs
+        // Step 1 - Validate input text
+        if (inputText.trim() === "") return
+
+        // Step 2 - Set loading state to true
+        setIsLoading(true)
+
+        // Step 3 - Call the askAIHelper func to hit the API and get response for the selectd AIs
         const aiResponses = await askAIHelper(selectedAI.map(ai => ai.toUpperCase()), inputText)
 
-        // Step 2 - Clear the input text
+        // Step 4 - Clear the input text
         setInputText("")
 
-        // Step 3 - Update the responses state with the new responses
+        // Step 5 - Update the responses state with the new responses
         const newResponses = { ...responses };
         aiResponses.responses.forEach((response) => {
             newResponses[(AI_OPTIONS.find((model) => model.id === response.model)).name.toUpperCase()] = response.response
         });
+
+        setIsLoading(false)
         setResponses(newResponses);
     }
 
@@ -74,7 +84,7 @@ const ChatWindow = () => {
                 </DropdownMenu>
 
                 <button type="button" className='flex justify-center items-center h-full aspect-square rounded-full bg-black cursor-pointer' onClick={askAI} >
-                    <Image src="/up-arrow.svg" alt='send-icon' width={20} height={20} />
+                    {isLoading ? <Loader2 className='animate-spin text-white w-5 h-5' /> : <Image src="/up-arrow.svg" alt='send-icon' width={20} height={20} />}
                 </button>
             </div>
         </section>
