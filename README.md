@@ -45,3 +45,21 @@ curl --location 'http://localhost:8080/api/ask' \
     "request_text": "Hello!"
 }'
 ```
+
+## Commands to run
+
+```bash
+ollama serve
+```
+
+```bash
+python3 ./backend/services/serve.py
+```
+
+```bash
+go run .
+```
+
+```bash
+npm run dev
+```
