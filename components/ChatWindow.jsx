@@ -40,12 +40,19 @@ const ChatWindow = () => {
         setResponses(newResponses);
     }
 
+    const sendMessagOnEnter = (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault()
+            askAI()
+        }
+    }
+
     return (
         <section className="flex flex-col justify-between items-center h-full min-h-0 my-4 space-y-6">
             <div className="flex flex-1 justify-center items-center h-full min-h-0 min-w-1/2 max-w-1/2 space-x-4">
                 {selectedAI.map((ai) => (
                     <div key={ai} className={`flex flex-col flex-1 ${isLoading ? "justify-start items-center" : "justify-start items-start"} size-full rounded-4xl p-5 bg-gray-50 border-4 border-gray-200 space-y-6`}>
-                       <div className="flex justify-between items-center w-full">
+                        <div className="flex justify-between items-center w-full">
                             <div className="flex justify-center items-center bg-white px-4 py-2 rounded-full drop-shadow-md">
                                 <p className='text-sm'>{ai}</p>
                             </div>
@@ -64,8 +71,8 @@ const ChatWindow = () => {
                 ))}
             </div>
 
-            <div className="flex justify-between items-center h-12 w-1/2 bg-white border-1 border-gray-500 shadow-inner rounded-full pl-4 pr-2 py-2 space-x-2">
-                <input type="text" value={inputText} placeholder='Ask anything' className='w-full ring-0 outline-none text-gray-600' onChange={(event) => setInputText(event.target.value)} />
+            <div className="flex justify-between items-center h-12 w-1/2 bg-white border-1 border-gray-500 rounded-full pl-4 pr-2 py-2 space-x-2">
+                <input type="text" value={inputText} placeholder='Ask anything' className='w-full appearance-none outline-none border-none text-gray-600' onChange={(event) => setInputText(event.target.value)} onKeyDown={sendMessagOnEnter} />
 
                 <DropdownMenu className='bg-blue-400'>
                     <DropdownMenuTrigger asChild>
