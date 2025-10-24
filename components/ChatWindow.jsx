@@ -48,8 +48,8 @@ const ChatWindow = () => {
     }
 
     return (
-        <section className="flex flex-col justify-between items-center h-full min-h-0 my-4 space-y-6">
-            <div className="flex flex-1 justify-center items-center h-full min-h-0 min-w-1/2 max-w-1/2 space-x-4">
+        <section className="flex flex-col justify-between items-center h-full min-h-0 my-4 mx-6 space-y-6">
+            <div className="flex md:flex-row flex-col flex-1 justify-center items-center h-full min-h-0 xl:min-w-1/2 xl:max-w-1/2 w-full md:space-x-4 space-y-2">
                 {selectedAI.map((ai) => (
                     <div key={ai} className={`flex flex-col flex-1 ${isLoading ? "justify-start items-center" : "justify-start items-start"} size-full rounded-4xl p-5 bg-gray-50 border-4 border-gray-200 space-y-6`}>
                         <div className="flex justify-between items-center w-full">
@@ -71,7 +71,7 @@ const ChatWindow = () => {
                 ))}
             </div>
 
-            <div className="flex justify-between items-center h-12 w-1/2 bg-white border-1 border-gray-500 rounded-full pl-4 pr-2 py-2 space-x-2">
+            <div className="flex justify-between items-center h-12 md:w-1/2 w-full bg-white border-1 border-gray-500 rounded-full pl-4 pr-2 py-2 space-x-2">
                 <input type="text" value={inputText} placeholder='Ask anything' className='w-full appearance-none outline-none border-none text-gray-600' onChange={(event) => setInputText(event.target.value)} onKeyDown={sendMessagOnEnter} />
 
                 <DropdownMenu className='bg-blue-400'>
