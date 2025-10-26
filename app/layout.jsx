@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "AI Writing Assistant",
+  title: "Breath of Words",
   description: "An AI-powered writing assistant to help you create better content.",
 };
 
