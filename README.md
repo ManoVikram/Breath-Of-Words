@@ -63,3 +63,9 @@ go run .
 ```bash
 npm run dev
 ```
+
+ ## UI
+ 
+
+https://github.com/user-attachments/assets/f3372d2e-584a-4423-806f-1bb85eac8d7b
+
