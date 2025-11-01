@@ -1,4 +1,4 @@
-# AI Writing Assistant
+# Breath of Words - AI Writing Assistant
 
 ## Install the Necessary Packages
 
